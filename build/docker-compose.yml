@@ -1,13 +1,13 @@
-version: '3.4'
-
 services:
-  # oscarchatroom.web:
-  #   image: ${DOCKER_REGISTRY-}oscarchatroomweb
-  #   build:
-  #     context: .
-  #     dockerfile: src/OscarChatRoom.Web/Dockerfile
 
+  # Application
+  oscarchatplatform:
+    image: oscarchatplatform
+    build:
+      context: ..
+      dockerfile: src/OscarChatPlatform.Web/Dockerfile
 
+  # Database
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
