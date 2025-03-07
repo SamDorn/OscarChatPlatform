@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Dettaglio Chat";
+}
+
+<!-- Includi il file CSS specifico per la chat -->
+<link rel="stylesheet" href="~/css/chat.css" />
+
+<div class="container mt-4">
+    <h2>Chat con Mario Rossi</h2>
+    <div class="chat-container">
+    </div>
+
+    <!-- Input per inviare un nuovo messaggio -->
+    <div class="mt-4">
+        <div class="input-group">
+            <textarea id="textMessage" class="form-control" placeholder="Scrivi un messaggio..." rows="2"></textarea>
+            <button id="sendMessage" class="btn btn-primary">Invia</button>
+        </div>
+    </div>
+</div>
+<script>
+    var sessionId = localStorage.getItem('sessionId');
+    if (sessionId !== "@ViewBag.SessionId") {
+        sessionId = "@ViewBag.SessionId";
+        localStorage.setItem('sessionId', sessionId);
+
+    }
+
+    console.log(sessionId)
+</script>
+<script src="~/js/chat.js"></script>

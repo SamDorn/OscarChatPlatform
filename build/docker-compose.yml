@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  # oscarchatroom.web:
+  #   image: ${DOCKER_REGISTRY-}oscarchatroomweb
+  #   build:
+  #     context: .
+  #     dockerfile: src/OscarChatRoom.Web/Dockerfile
+
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password123!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:

@@ -1,0 +1,58 @@
+/* Stile per la sidebar */
+.sidebar {
+    width: 200px; /* Larghezza ridotta */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+}
+
+    /* Centra gli elementi della sidebar */
+    .sidebar .nav {
+        width: 100%;
+    }
+
+    .sidebar .nav-item {
+        text-align: center;
+    }
+
+    .sidebar .nav-link {
+        color: #333;
+        font-size: 14px;
+        padding: 10px;
+        transition: background-color 0.3s;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+
+/* Margine per il contenuto principale */
+.col-md-10 {
+    margin-left: 200px; /* Larghezza della sidebar */
+}
+
+/* Stile per le card dei contatti */
+.card {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #666;
+}

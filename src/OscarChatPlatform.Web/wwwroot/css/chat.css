@@ -1,0 +1,94 @@
+﻿/* Stile per il contenitore della chat */
+.chat-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+/* Stile per i messaggi */
+.message {
+    max-width: 70%;
+    margin-bottom: 15px;
+}
+
+.message-sender {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.message-content {
+    display: inline-block;
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Messaggi inviati dall'utente */
+.text-end .message-content {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Messaggi ricevuti */
+.message:not(.text-end) .message-content {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+/* Input per inviare messaggi */
+.input-group textarea {
+    resize: none;
+    border-radius: 8px;
+}
+
+.input-group button {
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+/* Effetto hover per i messaggi */
+.message-content:hover {
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+/* Personalizzazione della scrollbar */
+.chat-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+    .chat-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message {
+    animation: fadeIn 0.3s ease-in-out;
+}
