@@ -6,6 +6,9 @@ services:
     build:
       context: ..
       dockerfile: src/OscarChatPlatform.Web/Dockerfile
+    depends_on: 
+      sqlserver:
+        condition: service_healthy
 
   # Database
   sqlserver:
@@ -18,6 +21,12 @@ services:
       - "1433:1433"
     volumes:
       - sqlserverdata:/var/opt/mssql
+    healthcheck:
+      test: ["CMD","/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Password123!", "-Q", "SELECT 1", "-C", "-b", "-o", "/dev/null"]
+      interval: 10s
+      timeout: 10s 
+      retries: 5
+      start_period: 5s
 
 volumes:
   sqlserverdata:
