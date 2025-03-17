@@ -55,7 +55,7 @@ $(document).ready(function () {
         }
     });
 
-    // Event when me or a user send a message
+    // Event when current user or another user send a message
     connection.on("ReceiveMessage", function (message, receivedUserId) {
 
         // If the ids corrispon I'm the one who sent the message

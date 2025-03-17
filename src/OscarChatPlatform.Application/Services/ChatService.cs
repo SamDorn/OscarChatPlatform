@@ -124,5 +124,23 @@ namespace OscarChatPlatform.Application.Services
 
             await _notificationService.SendMessageToUsers(connectionIds, message, sender.Id);
         }
+
+        public async Task DeleteChatRoomQueueIfExists(string connectionId)
+        {
+            ApplicationUser? user = await _userRepository.GetByConnectionId(connectionId);
+
+            if (user is null)
+                return;
+
+            ChatRoomQueue? queue = await _chatRoomQueueRepository.GetByUser(user);
+
+            // If the user is not present in any queue, just return
+            if (queue is null)
+                return;
+
+            // Otherwise delete the queue so other users can't join it
+            await _chatRoomQueueRepository.Remove(queue);
+
+        }
     }
 }

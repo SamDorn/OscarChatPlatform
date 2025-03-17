@@ -13,5 +13,6 @@ namespace OscarChatPlatform.Domain.Repositories
         Task Add(ChatRoomQueue chatRoomQueue);
         Task Remove(ChatRoomQueue chatRoomQueue);
         Task<ChatRoomQueue?> GetFirstCreated();
+        Task<ChatRoomQueue?> GetByUser(ApplicationUser user);
     }
 }

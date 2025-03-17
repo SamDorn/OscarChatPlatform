@@ -30,6 +30,7 @@ namespace OscarChatPlatform.Infrastructure.WebSocket
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            await _chatService.DeleteChatRoomQueueIfExists(Context.ConnectionId);
             // Delete the record from the connection table
             await _chatService.DeleteConnectionId(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);

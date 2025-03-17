@@ -45,5 +45,10 @@ namespace OscarChatPlatform.Infrastructure.Repositories
             _dbContext.Remove(chatRoomQueue);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<ChatRoomQueue?> GetByUser(ApplicationUser user)
+        {
+            return await _dbContext.ChatRoomQueues.FirstOrDefaultAsync(crq => crq.User == user);
+        }
     }
 }
