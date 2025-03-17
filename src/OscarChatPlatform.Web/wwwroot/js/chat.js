@@ -30,7 +30,7 @@ $(document).ready(function () {
     connection.start().then(function () {
         connection.invoke("AppendConnectionIdToUser", userId)
     }).catch(function (err) {
-            console.error("Errore di connessione: ", err.toString());
+        console.error("Errore di connessione: ", err.toString());
     });
     $(".start-chat-btn").on("click", function () {
         $("#loadingPopup").css("display", "flex");
@@ -48,17 +48,30 @@ $(document).ready(function () {
         const message = $("#chatInput").val();
 
         if (message.trim() !== "") {
-            const chatId = window.location.pathname.split('/')[2] 
-            connection.invoke("SendMessage", chatId ,message);
+            const chatId = window.location.pathname.split('/')[2] // Gets the chatId
+            connection.invoke("SendMessage", chatId, message);
+
+            $("#chatInput").val(""); // Empties the message text input
         }
     });
-    connection.on("ReceiveMessage", function (message, receivedUserId) {
-        console.log(receivedUserId)
-        console.log(userId)
-        const amIReceiver = receivedUserId == userId
 
-        if (amIReceiver)
-            alert("Ho inviato io il messaggio")
+    // Event when me or a user send a message
+    connection.on("ReceiveMessage", function (message, receivedUserId) {
+
+        // If the ids corrispon I'm the one who sent the message
+        const amISender = receivedUserId == userId
+
+        const messageDivClass = amISender ? "message sent" : "message received"
+
+        let $messageDiv = $("<div>", { "class": messageDivClass });
+        let $messageText = $("<p>").text(message);
+        let $messageTime = $("<span>", { "class": "message-time" });
+        $messageTime.text(new Date().toLocaleTimeString());
+
+        console.log($messageTime)
+
+
+        $("#chatMessages").append($messageDiv.append($messageText).append($messageTime));
     })
 
     connection.onclose(function (e) {
@@ -69,5 +82,15 @@ $(document).ready(function () {
             console.error("Errore di connessione: ", err.toString());
         });
     });
+
+    $(document).keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            $('#sendButton').click();
+            return false;
+        }
+    });   
+
 });
 
