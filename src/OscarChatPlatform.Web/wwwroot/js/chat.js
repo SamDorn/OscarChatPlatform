@@ -1,56 +1,73 @@
 "use strict";
 
-
-const currentUser = {
-    UserId: sessionId,
-    Username: 'Pippo'
-}
-
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+const SignalR_URL = "/chatHub";
 
 
-connection.on("ReceiveMessage", function (user, message) {
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl(SignalR_URL)
+    .build();
 
-    console.log("Entro")
 
-    // Display the message on the main screen
-    displayMessageBasedOnSender(sessionId, user, message)
-})
-
-connection.start().then(function () {
-    connection.invoke("RegisterUser", currentUser);
-}).catch(function (err) {
-    console.error("Errore di connessione: ", err.toString());
-    // Mostra un messaggio di errore all'utente
-});
-
-$("#sendMessage").on("click", function () {
-    const message = $("#textMessage").val();
-    if (message.trim() !== "") {
-        
-        connection.invoke("SendMessage", currentUser, message).catch(function (err) {
-            console.error("Errore nell'invio del messaggio: ", err.toString());
-            // Mostra un messaggio di errore all'utente
-        });
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
+    return "";
+}
+
+$(document).ready(function () {
+    const userId = getCookie("UserId");
+
+    connection.start().then(function () {
+        connection.invoke("AppendConnectionIdToUser", userId)
+    }).catch(function (err) {
+            console.error("Errore di connessione: ", err.toString());
+    });
+    $(".start-chat-btn").on("click", function () {
+        $("#loadingPopup").css("display", "flex");
+        connection.invoke("JoinChat", userId).catch(function (err) {
+            console.error("Errore JoinChat", err.toString());
+
+        });
+    })
+
+    connection.on("JoinRoom", function (chatId) {
+        window.location.href = "/chat/" + chatId;
+    })
+
+    $("#sendButton").on("click", function () {
+        const message = $("#chatInput").val();
+
+        if (message.trim() !== "") {
+            const chatId = window.location.pathname.split('/')[2] 
+            connection.invoke("SendMessage", chatId ,message);
+        }
+    });
+    connection.on("ReceiveMessage", function (message, receivedUserId) {
+        console.log(receivedUserId)
+        console.log(userId)
+        const amIReceiver = receivedUserId == userId
+
+        if (amIReceiver)
+            alert("Ho inviato io il messaggio")
+    })
+
+    connection.onclose(function (e) {
+        console.log(e)
+        connection.start().then(function () {
+            connection.invoke("AppendConnectionIdToUser", userId)
+        }).catch(function (err) {
+            console.error("Errore di connessione: ", err.toString());
+        });
+    });
 });
 
-function displayMessageBasedOnSender(userId, senderUser, message, timestamp) {
-    const time = new Date(timestamp).toLocaleTimeString();
-    if (userId === senderUser.userId)
-        $(".chat-container").append(`<div class="message mb-3 text-end">
-                    <div class="message-sender">Tu</div>
-                        <div class="message-content bg-primary text-white p-3 rounded">
-                        ${message}
-                        </div>
-                        <small class="text-muted">${time}</small>
-                    </div>`)
-    else
-        $(".chat-container").append(`<div class="message mb-3">
-                    <div class="message-sender">${senderUser.username}</div>
-                    <div class="message-content bg-light p-3 rounded">
-                        ${message}
-                    </div>
-                    <small class="text-muted">${time}</small>
-                </div>`)
-}

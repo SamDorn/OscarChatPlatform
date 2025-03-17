@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{02EA681E
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "build\docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarChatPlatform.Domain", "src\OscarChatPlatform.Domain\OscarChatPlatform.Domain.csproj", "{7235544B-1BD8-410A-8855-D0A159603AD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarChatPlatform.Infrastructure", "src\OscarChatPlatform.Infrastructure\OscarChatPlatform.Infrastructure.csproj", "{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7235544B-1BD8-410A-8855-D0A159603AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7235544B-1BD8-410A-8855-D0A159603AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7235544B-1BD8-410A-8855-D0A159603AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7235544B-1BD8-410A-8855-D0A159603AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +53,8 @@ Global
 		{3012485F-F5D7-45CD-907B-744B840F49E5} = {45A8F716-B37E-40E4-8616-E24F2473EE39}
 		{FC7321CD-5806-4A8F-8F91-E5AFDDC048DC} = {45A8F716-B37E-40E4-8616-E24F2473EE39}
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7235544B-1BD8-410A-8855-D0A159603AD6} = {45A8F716-B37E-40E4-8616-E24F2473EE39}
+		{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD} = {45A8F716-B37E-40E4-8616-E24F2473EE39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3066035-CC91-467D-946A-537581363F4A}

@@ -2,30 +2,35 @@
     ViewData["Title"] = "Dettaglio Chat";
 }
 
-<!-- Includi il file CSS specifico per la chat -->
 <link rel="stylesheet" href="~/css/chat.css" />
+<script src="~/js/chat.js"></script>
 
-<div class="container mt-4">
-    <h2>Chat con Mario Rossi</h2>
-    <div class="chat-container">
+<div class="full-page-chat">
+    <!-- Header della chat -->
+    <div class="chat-header">
+        <h3>Chat Anonima</h3>
+        <p>Stai chattando con un utente anonimo</p>
     </div>
 
-    <!-- Input per inviare un nuovo messaggio -->
-    <div class="mt-4">
-        <div class="input-group">
-            <textarea id="textMessage" class="form-control" placeholder="Scrivi un messaggio..." rows="2"></textarea>
-            <button id="sendMessage" class="btn btn-primary">Invia</button>
+    <!-- Area dei messaggi -->
+    <div class="chat-messages" id="chatMessages">
+        <!-- Messaggio ricevuto -->
+        <div class="message received">
+            <p>Ciao! Come stai?</p>
+            <span class="message-time">10:00</span>
         </div>
+
+        <!-- Messaggio inviato -->
+        <div class="message sent">
+            <p>Tutto bene, grazie! E tu?</p>
+            <span class="message-time">10:01</span>
+        </div>
+
+    </div>
+
+    <!-- Input per scrivere e inviare messaggi -->
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Scrivi un messaggio..." />
+        <button id="sendButton">Invia</button>
     </div>
 </div>
-<script>
-    var sessionId = localStorage.getItem('sessionId');
-    if (sessionId !== "@ViewBag.SessionId") {
-        sessionId = "@ViewBag.SessionId";
-        localStorage.setItem('sessionId', sessionId);
-
-    }
-
-    console.log(sessionId)
-</script>
-<script src="~/js/chat.js"></script>

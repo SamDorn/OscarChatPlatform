@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OscarChatPlatform.Domain\OscarChatPlatform.Domain.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.2" />
   </ItemGroup>
 
 </Project>

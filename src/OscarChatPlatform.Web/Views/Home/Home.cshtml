@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model OscarChatPlatform.Web.Models.HomeViewModel;
+@inject IViewLocalizer localizer;
+
+@{
+    ViewData["Title"] = "Home";
+}
+<link rel="stylesheet" href="~/css/home.css" />
+<script src="~/js/chat.js"></script>
+<!-- Pop-up di caricamento -->
+<div class="loading-popup" id="loadingPopup">
+    <div class="loading-box">
+        <div class="loading-spinner"></div>
+        <i class="btn-close red" style="float:right"></i>
+        <p>Stiamo cercando un altro utente...</p>
+    </div>
+</div>
+
+
+<!-- Chat container -->
+<div class="chat-container" id="chatContainer">
+    <main class="chat-main" id="chatMain">
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>@(Model.IsNewUser ? localizer["WelcomeMessage"] : localizer["WelcomeBackMessage"])</h3>
+            <p>
+                Parla con altri utenti anonimi, scopri nuovi
+                argomenti di discussione, e tanto altro ancora!
+            </p>
+        </div>
+        <div class="kpi-container">
+            <div class="kpi-box">Chat attive: <span id="activeChats">@Model.ActiveChats</span></div>
+            <div class="kpi-box">Utenti anonimi: <span id="anonymousUsers">@Model.ActiveUsers</span></div>
+        </div>
+        <div class="chat-form">
+            <button class="start-chat-btn">Inizia a chattare</button>
+        </div>
+    </main>
+</div>

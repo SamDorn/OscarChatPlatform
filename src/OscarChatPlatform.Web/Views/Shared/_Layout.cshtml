@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OscarChatroom</title>
+    <title>@ViewData["Title"] - OscarChatPlatform</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -14,36 +14,6 @@
     @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Navbar a sinistra -->
-            <div class="col-md-2 bg-light sidebar">
-                <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                    <ul class="nav flex-column w-100">
-                        <li class="nav-item mb-3">
-                            <a class="nav-link active" href="#">
-                                <i class="fas fa-cog"></i> Impostazioni
-                            </a>
-                        </li>
-                        <li class="nav-item mb-3">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-envelope"></i> Messaggi
-                            </a>
-                        </li>
-                        <li class="nav-item mb-3">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-users"></i> Gruppi
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Contenuto principale -->
-            <div class="col-md-10 ml-sm-auto col-lg-10 px-4">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
+    @RenderBody()
 </body>
 </html>

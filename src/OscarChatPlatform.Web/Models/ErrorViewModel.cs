@@ -1,4 +1,4 @@
-namespace OscarChatRoom.Web.Models
+namespace OscarChatPlatform.Web.Models
 {
     public class ErrorViewModel
     {

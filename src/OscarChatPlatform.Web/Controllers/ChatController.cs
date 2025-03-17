@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OscarChatRoom.Web.Controllers
+namespace OscarChatPlatform.Web.Controllers
 {
     [Route("chat")]
     public class ChatController : Controller
     {
 
-        [Route("")]
-        public IActionResult Index()
+        [Route("{chatId:guid}")]
+        public IActionResult Index(Guid chatId)
         {
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("SessionId")))
-                HttpContext.Session.SetString("SessionId", Convert.ToString(Guid.NewGuid())!);
-
-            ViewBag.SessionId = HttpContext.Session.GetString("SessionId");
             return View();
         }
     }

@@ -1,117 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home";
+﻿<link rel="stylesheet" href="~/css/home.css" />
+<script src="~/js/login.js"></script>
+
+<div id="popup" class="popup username">
+    <div class="popup-content">
+        <h2>Benvenuto su OscarChatPlatform!</h2>
+        <p>Scegli un'opzione:</p>
+        <button class="continue-btn" id="Continua">Continua come ospite</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const CREATE_GUEST_URL = "@Url.Action("CreateGuestUser", "Home")";
+    </script>
 }
-
-<div class="container mt-4">
-    <h2>Contatti</h2>
-    <div class="row">
-        <!-- Contatto 1 -->
-        <a href="@Url.Action("Index", "Chat")">
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">Mario Rossi</h5>
-                            <small class="text-muted">3 minuti fa</small>
-                        </div>
-                        <p class="card-text">Ciao, come stai?</p>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Contatto 2 -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Luigi Verdi</h5>
-                        <small class="text-muted">10 minuti fa</small>
-                    </div>
-                    <p class="card-text">Hai visto l'ultima notizia?</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contatto 3 -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Giovanni Bianchi</h5>
-                        <small class="text-muted">1 ora fa</small>
-                    </div>
-                    <p class="card-text">Domani ci vediamo?</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contatto 4 -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Anna Neri</h5>
-                        <small class="text-muted">2 ore fa</small>
-                    </div>
-                    <p class="card-text">Ho finito il progetto!</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contatto 5 -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Laura Gialli</h5>
-                        <small class="text-muted">5 ore fa</small>
-                    </div>
-                    <p class="card-text">Ricordati di chiamarmi.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="welcomePopup" class="modal fade" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="welcomeModalLabel">Benvenuto!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <div id="mascotAnimation" style="width: 200px; height: 200px; margin: 0 auto;"></div>
-                <p>Inserisci il tuo username per iniziare a chattare.</p>
-                <input type="text" id="usernameInput" class="form-control mb-3" placeholder="Username" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveUsername">Salva</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const sessionId = localStorage.getItem("sessionId");
-
-        if (!sessionId) {
-            // Mostra il popup
-            const welcomePopup = new bootstrap.Modal(document.getElementById('welcomePopup'));
-            welcomePopup.show();
-
-            // Salva l'username
-            document.getElementById('saveUsername').addEventListener('click', function () {
-                const username = document.getElementById('usernameInput').value;
-                if (username) {
-                    localStorage.setItem("sessionId", username); // Salva l'username come sessionId
-                    welcomePopup.hide();
-                    location.reload(); // Ricarica la pagina per aggiornare lo stato
-                } else {
-                    alert("Inserisci un username valido!");
-                }
-            });
-        }
-    });
-</script>
