@@ -10,5 +10,6 @@ namespace OscarChatPlatform.Domain.Repositories
     public interface IMessageRepository
     {
         Task Add(Message message);
+        Task<IEnumerable<Message>> GetAllByChatId(string chatId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using OscarChatPlatform.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OscarChatPlatform.Domain.Entities;
 using OscarChatPlatform.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,16 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         {
             await _dbContext.AddAsync(message);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Message>> GetAllByChatId(string chatId)
+        {
+            return await _dbContext.Messages
+                .Include(m => m.Sender)
+                .Include(m => m.Chat)
+                .Where(m => m.Chat.Id == chatId)
+                .OrderBy(m => m.SentAt)
+                .ToListAsync();
         }
     }
 }

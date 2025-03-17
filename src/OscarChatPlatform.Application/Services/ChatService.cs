@@ -18,8 +18,8 @@ namespace OscarChatPlatform.Application.Services
         private readonly IMessageRepository _messageRepository;
         private readonly INotificationService _notificationService;
 
-        public ChatService(IUserRepository userRepository, INotificationService notificationService, 
-                        IConnectionRepository connectionRepository, IChatRepository chatRepository, 
+        public ChatService(IUserRepository userRepository, INotificationService notificationService,
+                        IConnectionRepository connectionRepository, IChatRepository chatRepository,
                         IChatRoomQueueRepository chatRoomQueueRepository, IMessageRepository messageRepository)
         {
             _userRepository = userRepository;
@@ -76,7 +76,7 @@ namespace OscarChatPlatform.Application.Services
             else
             {
                 ChatRoomQueue? chatRoomQueue = await _chatRoomQueueRepository.GetFirstCreated();
-                if (chatRoomQueue is null) await CreateChat(userId);
+                if (chatRoomQueue is null) await CreateChat(userId); // Is this a good approach?
 
                 await _chatRoomQueueRepository.Remove(chatRoomQueue!);
 
@@ -115,9 +115,9 @@ namespace OscarChatPlatform.Application.Services
             await _messageRepository.Add(currentMessage);
 
             IEnumerable<ApplicationUser> chatUsers = await _userRepository.GetUsersByChatId(chatId);
-            List<string> connectionIds= [];
+            List<string> connectionIds = [];
 
-            foreach(ApplicationUser chatUser in chatUsers)
+            foreach (ApplicationUser chatUser in chatUsers)
             {
                 connectionIds.AddRange(await this.GetConnectionIdsByUser(chatUser));
             }
@@ -140,6 +140,11 @@ namespace OscarChatPlatform.Application.Services
 
             // Otherwise delete the queue so other users can't join it
             await _chatRoomQueueRepository.Remove(queue);
+
+        }
+        public async Task<IEnumerable<Message>> GetChatMessages(string chatId)
+        {
+            return await _messageRepository.GetAllByChatId(chatId);
 
         }
     }

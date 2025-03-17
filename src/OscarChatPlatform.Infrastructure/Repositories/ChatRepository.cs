@@ -34,7 +34,7 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         {
             Chat? chat = _dbContext.Chats.Where(x => x.User.Contains(user)).FirstOrDefault(c => c.User.Count == 1);
 
-            if(chat is null)
+            if (chat is null)
             {
                 chat = new()
                 {

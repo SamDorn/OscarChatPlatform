@@ -66,7 +66,7 @@ $(document).ready(function () {
         let $messageDiv = $("<div>", { "class": messageDivClass });
         let $messageText = $("<p>").text(message);
         let $messageTime = $("<span>", { "class": "message-time" });
-        $messageTime.text(new Date().toLocaleTimeString());
+        $messageTime.text(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
 
         console.log($messageTime)
 
