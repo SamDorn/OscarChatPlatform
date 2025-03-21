@@ -10,13 +10,15 @@ namespace OscarChatPlatform.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserService _userService;
+        private readonly ChatService _chatService;
         private readonly IViewLocalizer _localizer;
 
-        public HomeController(ILogger<HomeController> logger, UserService userService, IViewLocalizer localizer)
+        public HomeController(ILogger<HomeController> logger, UserService userService, IViewLocalizer localizer, ChatService chatService)
         {
             _logger = logger;
             _userService = userService;
             _localizer = localizer;
+            _chatService = chatService;
         }
 
         public async Task<IActionResult> Index()
@@ -41,10 +43,15 @@ namespace OscarChatPlatform.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+
+
             HomeViewModel model = new()
             {
-                IsNewUser = bool.Parse(HttpContext.Request.Cookies["IsNewUser"] ?? "false")
+                IsNewUser = bool.Parse(HttpContext.Request.Cookies["IsNewUser"] ?? "false"),
+                ActiveChats = await _chatService.GetNumberActiveChats(),
+                OnlineUsers = await _userService.GetNumberActiveUser()
             };
+            HttpContext.Response.Cookies.Delete("IsNewUser");
 
             return View(model);
         }

@@ -15,6 +15,7 @@ namespace OscarChatPlatform.Domain.Repositories
         Task<string> Add(ApplicationUser user);
         Task Remove();
         Task<IEnumerable<ApplicationUser>> GetUsersByChatId(string chatId);
+        Task<int> GetNumberOnlineUsers();
 
 
     }

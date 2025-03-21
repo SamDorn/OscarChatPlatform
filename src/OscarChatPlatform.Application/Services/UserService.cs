@@ -34,6 +34,12 @@ namespace OscarChatPlatform.Application.Services
 
             return user.Id;
         }
+
+        public async Task<int> GetNumberActiveUser()
+        {
+            return await _userRepository.GetNumberOnlineUsers();
+        }
+
         public async Task<bool> IsValidUser(string userId)
         {
             if (string.IsNullOrEmpty(userId)) 

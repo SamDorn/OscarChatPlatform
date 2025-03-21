@@ -31,7 +31,7 @@ namespace OscarChatPlatform.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        
+
         public async Task<string> Add(ApplicationUser user)
         {
             await _userManager.CreateAsync(user);
@@ -47,16 +47,25 @@ namespace OscarChatPlatform.Infrastructure.Repositories
             return await _dbContext.Connections
                 .Include(c => c.User)
                 .Where(c => c.Id == connectionId)
-                .Select(c =>  c.User)
+                .Select(c => c.User)
                 .FirstOrDefaultAsync();
         }
 
-        
+
         public async Task<IEnumerable<ApplicationUser>> GetUsersByChatId(string chatId)
         {
             return await _dbContext.Users
                 .Where(u => u.Chat.Any(c => c.Id == chatId))
                 .ToListAsync();
+        }
+
+        public async Task<int> GetNumberOnlineUsers()
+        {
+            var a = await _dbContext.Connections
+                .GroupBy(c => c.User)
+                .Select(g => g.First())
+                .CountAsync();
+            return a;
         }
     }
 }

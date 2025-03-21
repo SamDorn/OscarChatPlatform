@@ -147,5 +147,10 @@ namespace OscarChatPlatform.Application.Services
             return await _messageRepository.GetAllByChatId(chatId);
 
         }
+
+        public async Task<int> GetNumberActiveChats()
+        {
+            return 0;
+        }
     }
 }

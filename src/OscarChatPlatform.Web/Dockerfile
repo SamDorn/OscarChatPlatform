@@ -14,6 +14,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/OscarChatPlatform.Web/OscarChatPlatform.Web.csproj", "OscarChatPlatform.Web/"]
 COPY ["src/OscarChatPlatform.Application/OscarChatPlatform.Application.csproj", "OscarChatPlatform.Application/"]
+COPY ["src/OscarChatPlatform.Domain/OscarChatPlatform.Domain.csproj", "OscarChatPlatform.Domain/"]
+COPY ["src/OscarChatPlatform.Infrastructure/OscarChatPlatform.Infrastructure.csproj", "OscarChatPlatform.Infrastructure/"]
 RUN dotnet restore "./OscarChatPlatform.Web/OscarChatPlatform.Web.csproj"
 
 WORKDIR "/src/OscarChatPlatform.Web"

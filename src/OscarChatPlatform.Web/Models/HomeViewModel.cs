@@ -15,6 +15,6 @@
         /// <summary>
         /// Number of active users on the platform
         /// </summary>
-        public int ActiveUsers { get; set; } = 0;
+        public int OnlineUsers { get; set; } = 0;
     }
 }

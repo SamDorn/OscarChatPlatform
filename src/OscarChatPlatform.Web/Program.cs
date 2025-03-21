@@ -31,8 +31,8 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 // Add database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
-    );
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -43,9 +43,13 @@ builder.Services.AddScoped<ChatService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<INotificationService, SignalRNotificationService>();
 
-builder.Services.AddSession();
-
 var app = builder.Build();
+
+
+using var context = app.Services.CreateScope();
+var dbContext = context.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+// Check and apply pending migrations
+await dbContext.Database.EnsureCreatedAsync();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -72,3 +76,8 @@ app.MapHub<ChatHub>("/chatHub");
 app.UseRequestLocalization();
 
 app.Run();
+
+
+await dbContext.Database.EnsureDeletedAsync();
+
+
