@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarChatPlatform.Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarChatPlatform.Infrastructure", "src\OscarChatPlatform.Infrastructure\OscarChatPlatform.Infrastructure.csproj", "{B9CFDC38-5FC2-48BB-AF54-B7B60AC67FCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{9A31FACA-A68E-492B-A6E9-1EB1B3DAA8B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

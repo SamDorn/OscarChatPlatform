@@ -15,7 +15,47 @@
         <p>Stiamo cercando un altro utente...</p>
     </div>
 </div>
+<!-- Bottone per aprire/chiudere la sidebar su mobile -->
+<button class="sidebar-toggle" id="sidebarToggle">☰</button>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h1 style="font-size:22px">OscarChatPlatform</h1>
+    <div class="sidebar-section" id="chatsSection">
+        <h4 onclick="toggleSection('chatsSection')">Chat <span>▼</span></h4>
+        <ul>
+            <li>Chat 1</li>
+            <li>Chat 2</li>
+            <li>Chat 3</li>
+        </ul>
+    </div>
 
+    <div class="sidebar-section" id="usersSection">
+        <h4 onclick="toggleSection('usersSection')">Utenti <span>▼</span></h4>
+        <ul>
+            <li>Utente 1</li>
+            <li>Utente 2</li>
+            <li>Utente 3</li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section" id="groupsSection">
+        <h4 onclick="toggleSection('groupsSection')">Gruppi <span>▼</span></h4>
+        <ul>
+            <li>Gruppo 1</li>
+            <li>Gruppo 2</li>
+            <li>Gruppo 3</li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section" id="settingsSection">
+        <h4 onclick="toggleSection('settingsSection')">Impostazioni <span>▼</span></h4>
+        <ul>
+            <li>Profilo</li>
+            <li>Notifiche</li>
+            <li>Privacy</li>
+        </ul>
+    </div>
+</div>
 
 <!-- Chat container -->
 <div class="chat-container" id="chatContainer">
@@ -37,3 +77,24 @@
         </div>
     </main>
 </div>
+
+<script>
+    var toggled = false;
+        // Funzione per aprire/chiudere le sezioni della sidebar
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.toggle('active');
+    }
+
+    $("#sidebarToggle").on("click", function(){
+        if(toggled){
+            $("#sidebar").removeClass("active");
+            toggled = false;
+        }
+        else{
+            toggled = true;
+            $("#sidebar").addClass("active");
+        }
+
+    });
+</script>

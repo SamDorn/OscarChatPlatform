@@ -14,9 +14,10 @@ body {
 }
 
 .chat-container {
+    /*margin-left: 250px;  Larghezza della sidebar */
+    width: calc(100% - 250px);
+    height: 100vh;
     display: flex;
-    width: 100%;
-    height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -222,4 +223,86 @@ body {
 
 .username {
     display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background: #2a2a3b;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+    .sidebar-section h4 {
+        color: #c792ea;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .sidebar-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: none; /* Nascondi le liste inizialmente */
+    }
+
+        .sidebar-section ul li {
+            padding: 8px 0;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+            .sidebar-section ul li:hover {
+                color: #c792ea;
+            }
+
+    .sidebar-section.active ul {
+        display: block; /* Mostra la lista quando la sezione è attiva */
+    }
+
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #c792ea;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+@media (max-width: 999px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+
+        .sidebar.active {
+            transform: translateX(0);
+            transition: transform 0.3s;
+        }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .chat-container {
+        margin-left: 0;
+    }
 }
