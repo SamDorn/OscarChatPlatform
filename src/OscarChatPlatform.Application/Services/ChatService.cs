@@ -80,7 +80,7 @@ namespace OscarChatPlatform.Application.Services
 
                 await _chatRoomQueueRepository.Remove(chatRoomQueue!);
 
-                Chat chat = new()
+                AnonymousChat chat = new()
                 {
                     Id = Guid.NewGuid().ToString(),
                     User = new List<ApplicationUser>() { user, chatRoomQueue!.User },
@@ -102,7 +102,7 @@ namespace OscarChatPlatform.Application.Services
         {
             ApplicationUser sender = await _userRepository.GetByConnectionId(connectionId) ?? throw new Exception();
 
-            Chat currentChat = await _chatRepository.GetById(chatId) ?? throw new Exception();
+            AnonymousChat currentChat = await _chatRepository.GetById(chatId) ?? throw new Exception();
 
             Message currentMessage = new()
             {

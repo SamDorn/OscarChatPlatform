@@ -18,21 +18,21 @@ namespace OscarChatPlatform.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<string> Add(Chat chat)
+        public async Task<string> Add(AnonymousChat chat)
         {
             await _dbContext.AddAsync(chat);
             await _dbContext.SaveChangesAsync();
             return chat.Id;
         }
 
-        public async Task<Chat?> GetById(string id)
+        public async Task<AnonymousChat?> GetById(string id)
         {
             return await _dbContext.Chats.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<string> GetChatWithOneUser(ApplicationUser user)
         {
-            Chat? chat = _dbContext.Chats.Where(x => x.User.Contains(user)).FirstOrDefault(c => c.User.Count == 1);
+            AnonymousChat? chat = _dbContext.Chats.Where(x => x.User.Contains(user)).FirstOrDefault(c => c.User.Count == 1);
 
             if (chat is null)
             {

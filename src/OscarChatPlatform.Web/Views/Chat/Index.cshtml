@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="~/css/chat.css" />
 <script src="~/js/chat.js"></script>
 
+@await Html.PartialAsync("_Sidebar")
+
 <div class="full-page-chat">
     <!-- Header della chat -->
     <div class="chat-header">
@@ -18,7 +20,7 @@
         @foreach (var message in Model.Messages)
         {
             <div class="message @(message.Sender.Id == Model.UserId ? "sent" : "received")">
-                <p>@message.Content</p>
+                <span>@message.Content</span>
                 <span class="message-time">@message.SentAt.ToShortTimeString()</span>
             </div>
         }
@@ -28,5 +30,7 @@
     <div class="chat-input-area">
         <input type="text" id="chatInput" placeholder="Scrivi un messaggio..." />
         <button id="sendButton">Invia</button>
+        <button id="exitButton">Termina</button>
+        <button id="confirmExitButton">Sicuro?</button>
     </div>
 </div>

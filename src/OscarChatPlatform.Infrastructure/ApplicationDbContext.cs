@@ -12,7 +12,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     }
     public DbSet<Connection> Connections { get; set; }
-    public DbSet<Chat> Chats { get; set; }
+    public DbSet<AnonymousChat> Chats { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<ChatRoomQueue> ChatRoomQueues { get; set; }
 }

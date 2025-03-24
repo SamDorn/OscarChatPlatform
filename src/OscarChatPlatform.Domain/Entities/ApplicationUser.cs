@@ -11,6 +11,6 @@ namespace OscarChatPlatform.Domain.Entities
     {
         public bool IsAnonymous { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<Chat> Chat { get; set; }
+        public List<AnonymousChat> Chat { get; set; }
     }
 }

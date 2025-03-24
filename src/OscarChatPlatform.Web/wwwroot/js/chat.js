@@ -68,8 +68,6 @@ $(document).ready(function () {
         let $messageTime = $("<span>", { "class": "message-time" });
         $messageTime.text(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
 
-        console.log($messageTime)
-
 
         $("#chatMessages").append($messageDiv.append($messageText).append($messageTime));
     })
@@ -90,7 +88,14 @@ $(document).ready(function () {
             $('#sendButton').click();
             return false;
         }
-    });   
+    });
 
+    $("#exitButton").on("click", function () {
+        $("#exitButton").hide();
+        $("#confirmExitButton").show();
+    });
+    $("#confirmExitButton").on("click", function () {
+        connection.invoke("ExitChat", userId)
+    });
 });
 

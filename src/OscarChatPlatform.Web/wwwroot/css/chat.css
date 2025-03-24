@@ -15,6 +15,7 @@
     background: #34344a;
     padding: 20px;
     box-sizing: border-box;
+    margin-left: 250px;
 }
 
 .chat-header {
@@ -48,6 +49,7 @@
     padding: 8px 12px;
     border-radius: 10px;
     max-width: 70%;
+    width: fit-content;
 }
 
     .message.received {
@@ -61,9 +63,10 @@
         margin-left: auto;
     }
 
-    .message p {
+    .message span {
         margin: 0;
         font-size: 14px;
+        overflow-wrap: break-word;
     }
 
     .message .message-time {
@@ -104,4 +107,54 @@
 
     #sendButton:hover {
         background: #a57fd4;
+    }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+#exitButton {
+    padding: 10px 20px;
+    background: #ffac1c;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+    #exitButton:hover {
+        background: #e69b19;
+    }
+
+#confirmExitButton {
+    display: none;
+    padding: 10px 20px;
+    background: #e64e2e;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+    #confirmExitButton:hover {
+        background: #cc4629;
     }

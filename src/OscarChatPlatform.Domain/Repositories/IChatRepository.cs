@@ -9,9 +9,9 @@ namespace OscarChatPlatform.Domain.Repositories
 {
     public interface IChatRepository
     {
-        Task<Chat?> GetById(string id);
+        Task<AnonymousChat?> GetById(string id);
         //Task<IEnumerable<string>> GetAllByUserId();
-        Task<string> Add(Chat chat);
+        Task<string> Add(AnonymousChat chat);
         Task RemoveById(string id);
         Task<string> GetChatWithOneUser(ApplicationUser user);
     }
