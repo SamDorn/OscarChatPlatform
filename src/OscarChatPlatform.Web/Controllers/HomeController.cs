@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using OscarChatPlatform.Application.Services;
@@ -13,7 +15,8 @@ namespace OscarChatPlatform.Web.Controllers
         private readonly ChatService _chatService;
         private readonly IViewLocalizer _localizer;
 
-        public HomeController(ILogger<HomeController> logger, UserService userService, IViewLocalizer localizer, ChatService chatService)
+        public HomeController(ILogger<HomeController> logger, UserService userService,
+                              IViewLocalizer localizer, ChatService chatService)
         {
             _logger = logger;
             _userService = userService;
@@ -25,25 +28,18 @@ namespace OscarChatPlatform.Web.Controllers
         {
             string userId = HttpContext.Request.Cookies["UserId"] ?? string.Empty;
 
-            if (await _userService.IsValidUser(userId))
-                return RedirectToAction("Home");
+            //if (await _userService.IsValidUser(userId))
+            //    return RedirectToAction("Home");
 
             return View();
         }
 
+        [Authorize]
         [HttpGet("home")]
         public async Task<IActionResult> Home()
         {
 
             string userId = HttpContext.Request.Cookies["UserId"] ?? string.Empty;
-
-            // If the userId is empty or it's not a valid user redirect to the login page
-            if (string.IsNullOrEmpty(userId) || !await _userService.IsValidUser(userId))
-            {
-                return RedirectToAction("Index");
-            }
-
-
 
             HomeViewModel model = new()
             {
@@ -60,18 +56,12 @@ namespace OscarChatPlatform.Web.Controllers
         public async Task<IActionResult> CreateGuestUser()
         {
             // Create the new anonymous user
-            string userId = await _userService.CreateUser();
+            string token = await _userService.CreateUser();
 
             // Append the UserId in the cookie
-            HttpContext.Response.Cookies.Append("UserId", userId, new CookieOptions() 
-            { 
-                Expires = DateTimeOffset.MaxValue, 
-                Secure = true
-            });
-
-            HttpContext.Response.Cookies.Append("IsNewUser", "true", new CookieOptions()
+            HttpContext.Response.Cookies.Append("token", token, new CookieOptions()
             {
-                Expires = DateTimeOffset.Now.AddMinutes(1),
+                Expires = DateTimeOffset.MaxValue,
                 Secure = true
             });
 

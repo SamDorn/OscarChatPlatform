@@ -26,9 +26,9 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         public async Task<IEnumerable<Message>> GetAllByChatId(string chatId)
         {
             return await _dbContext.Messages
-                .Include(m => m.Sender)
-                .Include(m => m.Chat)
-                .Where(m => m.Chat.Id == chatId)
+                .Include(m => m.SenderUser)
+                .Include(m => m.RandomChat)
+                .Where(m => m.RandomChat.Id == chatId)
                 .OrderBy(m => m.SentAt)
                 .ToListAsync();
         }

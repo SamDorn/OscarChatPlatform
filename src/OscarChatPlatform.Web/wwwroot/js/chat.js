@@ -25,6 +25,9 @@ function getCookie(cname) {
 }
 
 $(document).ready(function () {
+
+    $("#confirmExitButton").hide();
+
     const userId = getCookie("UserId");
 
     connection.start().then(function () {
@@ -95,7 +98,21 @@ $(document).ready(function () {
         $("#confirmExitButton").show();
     });
     $("#confirmExitButton").on("click", function () {
-        connection.invoke("ExitChat", userId)
+        const chatId = window.location.pathname.split('/')[2] // Gets the chatId
+
+        connection.invoke("TerminateChat", chatId, userId)
     });
+    connection.on("TerminateChat", function (terminatedByUserId) {
+        terminateChat(terminatedByUserId);
+    })
+    function terminateChat(terminatedByUserId) {
+        $("#confirmExitButton").hide();
+        $("#exitButton").hide();
+        $("#sendButton").hide();
+        $("#newChatButton").prop("hidden", false);
+
+        $("#chatInput").attr("placeholder", "Chat terminata");
+        $("#chatInput").prop('disabled', true);
+    }
 });
 

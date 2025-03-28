@@ -1,13 +1,20 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OscarChatPlatform.Application;
 using OscarChatPlatform.Application.Services;
 using OscarChatPlatform.Domain.Entities;
 using OscarChatPlatform.Domain.Repositories;
 using OscarChatPlatform.Infrastructure;
+using OscarChatPlatform.Infrastructure.Authentication;
 using OscarChatPlatform.Infrastructure.Repositories;
 using OscarChatPlatform.Infrastructure.WebSocket;
+using OscarChatPlatform.Web.Extensions;
+using System.Net;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,18 +36,50 @@ builder.Services.AddScoped<IChatRoomQueueRepository, ChatRoomQueueRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 
+// Add jwtToken
+builder.Services.AddSingleton<ITokenProvider, TokenProvider>();
+
+
 // Add database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+    options.UseSqlServer("Data Source=localhost;Initial Catalog=prova1;User ID=sa;Password=Password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//.AddJwtBearer(options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+//        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+//        IssuerSigningKey = new SymmetricSecurityKey(
+//            Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY")!))
+//    };
+
+//    // Usa il nostro evento personalizzato
+//    options.Events = new CookieJwtBearerEvents("token");
+//});
+
+builder.Services.AddAuthorization();
+
 // Add SignalR
 builder.Services.AddSignalR();
 builder.Services.AddScoped<ChatService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<MessageService>();
+builder.Services.AddScoped<ChatRoomService>();
+builder.Services.AddScoped<ConnectionService>();
 builder.Services.AddScoped<INotificationService, SignalRNotificationService>();
 
 var app = builder.Build();
@@ -64,20 +103,31 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseStatusCodePages(async context =>
+{
+    if (context.HttpContext.Response.StatusCode == 401)
+    {
+        // Solo per richieste non-API
+        if (!context.HttpContext.Request.Path.StartsWithSegments("/api"))
+        {
+            context.HttpContext.Response.Redirect("/");
+        }
+    }
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
 app.MapHub<ChatHub>("/chatHub");
 
 app.UseRequestLocalization();
 
+
+
 app.Run();
-
-
-await dbContext.Database.EnsureDeletedAsync();
 
 

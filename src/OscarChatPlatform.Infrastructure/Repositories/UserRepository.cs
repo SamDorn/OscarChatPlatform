@@ -55,7 +55,7 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         public async Task<IEnumerable<ApplicationUser>> GetUsersByChatId(string chatId)
         {
             return await _dbContext.Users
-                .Where(u => u.Chat.Any(c => c.Id == chatId))
+                .Where(u => u.RandomChats.Any(c => c.Id == chatId))
                 .ToListAsync();
         }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.VisualBasic;
 using OscarChatPlatform.Application;
-using OscarChatPlatform.Application.DTO;
+using OscarChatPlatform.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +27,11 @@ namespace OscarChatPlatform.Infrastructure.WebSocket
         public async Task SendMessageToUsers(IReadOnlyList<string> connectionIds, string message, string senderId)
         {
             await _hubContext.Clients.Clients(connectionIds).SendAsync("ReceiveMessage", message, senderId);
+        }
+        public async Task TerminateChat(IReadOnlyList<string> connectionIds, string terminatedByUserId)
+        {
+            await _hubContext.Clients.Clients(connectionIds).SendAsync("TerminateChat", terminatedByUserId);
+
         }
     }
 }

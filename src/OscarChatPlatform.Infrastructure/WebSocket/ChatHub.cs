@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using OscarChatPlatform.Application;
-using OscarChatPlatform.Application.DTO;
 using OscarChatPlatform.Application.Services;
 
 namespace OscarChatPlatform.Infrastructure.WebSocket
@@ -26,6 +25,11 @@ namespace OscarChatPlatform.Infrastructure.WebSocket
         public async Task SendMessage(string chatId, string message)
         {
             await _chatService.InsertMessage(chatId, message, Context.ConnectionId);
+        }
+
+        public async Task TerminateChat(string chatId, string terminatedByUserId)
+        {
+            await _chatService.TerminateChat(chatId, terminatedByUserId);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

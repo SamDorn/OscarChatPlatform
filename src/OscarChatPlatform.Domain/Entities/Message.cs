@@ -9,8 +9,9 @@ namespace OscarChatPlatform.Domain.Entities
     public sealed class Message
     {
         public string Id { get; set; }
-        public AnonymousChat Chat { get; set; }
-        public ApplicationUser Sender { get; set; }
+        public RandomChat? RandomChat { get; set; }
+        public RandomChat? StandardChat { get; set; }
+        public ApplicationUser SenderUser { get; set; }
         public string Content { get; set; }
         public DateTime SentAt { get; set; }
     }

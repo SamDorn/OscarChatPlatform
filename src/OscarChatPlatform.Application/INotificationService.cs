@@ -1,5 +1,4 @@
-﻿using OscarChatPlatform.Application.DTO;
-using OscarChatPlatform.Domain.Entities;
+﻿using OscarChatPlatform.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +11,6 @@ namespace OscarChatPlatform.Application
     {
         Task SendChatIdToUsers(IReadOnlyList<string> connectionIds, string chatId);
         Task SendMessageToUsers(IReadOnlyList<string> connectionIds, string message, string senderId);
+        Task TerminateChat(IReadOnlyList<string> connectionIds, string terminatedByUserId);
     }
 }

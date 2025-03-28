@@ -1,23 +1,20 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OscarChatPlatform.Domain.Entities;
 using OscarChatPlatform.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OscarChatPlatform.Application.Services
 {
     public sealed class UserService
     {
+        private readonly ITokenProvider _tokenProvider;
         private readonly IUserRepository _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserService(IUserRepository userRepository, UserManager<ApplicationUser> userManager)
+        public UserService(IUserRepository userRepository, UserManager<ApplicationUser> userManager, ITokenProvider tokenProvider)
         {
             _userRepository = userRepository;
             _userManager = userManager;
+            _tokenProvider = tokenProvider;
         }
         public async Task<string> CreateUser()
         {
@@ -32,7 +29,9 @@ namespace OscarChatPlatform.Application.Services
             };
             await _userManager.CreateAsync(user);
 
-            return user.Id;
+            string token = _tokenProvider.GenerateToken(user);
+
+            return token;
         }
 
         public async Task<int> GetNumberActiveUser()

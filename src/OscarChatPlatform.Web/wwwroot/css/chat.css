@@ -94,18 +94,11 @@
     outline: none;
 }
 
-#sendButton {
-    padding: 10px 20px;
+#sendButton, #newChatButton {
     background: #c792ea;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
 }
 
-    #sendButton:hover {
+    #sendButton, #newChatButton:hover {
         background: #a57fd4;
     }
 
@@ -129,14 +122,7 @@
     }
 
 #exitButton {
-    padding: 10px 20px;
     background: #ffac1c;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
 }
 
     #exitButton:hover {
@@ -144,9 +130,19 @@
     }
 
 #confirmExitButton {
-    display: none;
-    padding: 10px 20px;
     background: #e64e2e;
+}
+
+    #confirmExitButton:hover {
+        background: #cc4629;
+    }
+
+
+#newChatButton{
+    background:
+}
+button {
+    padding: 10px 20px;
     color: white;
     border: none;
     border-radius: 20px;
@@ -155,6 +151,3 @@
     transition: background 0.3s;
 }
 
-    #confirmExitButton:hover {
-        background: #cc4629;
-    }

@@ -19,18 +19,26 @@
     <div class="chat-messages" id="chatMessages">
         @foreach (var message in Model.Messages)
         {
-            <div class="message @(message.Sender.Id == Model.UserId ? "sent" : "received")">
+            <div class="message @(message.SenderUser.Id == Model.UserId ? "sent" : "received")">
                 <span>@message.Content</span>
                 <span class="message-time">@message.SentAt.ToShortTimeString()</span>
             </div>
         }
     </div>
 
-    <!-- Input per scrivere e inviare messaggi -->
+    <!-- Area di input per la chat con gestione migliore dello stato -->
     <div class="chat-input-area">
-        <input type="text" id="chatInput" placeholder="Scrivi un messaggio..." />
-        <button id="sendButton">Invia</button>
-        <button id="exitButton">Termina</button>
-        <button id="confirmExitButton">Sicuro?</button>
+        <!-- Input messaggio - disabilitato se chat terminata -->
+        <input type="text" id="chatInput"
+               placeholder="@(string.IsNullOrEmpty(Model.TerminatedByUserId) ? "Scrivi un messaggio..." : "Chat terminata")"
+               disabled="@(!string.IsNullOrEmpty(Model.TerminatedByUserId))" />
+
+        <!-- Pulsanti visibili solo quando la chat è attiva -->
+        <div class="button-group" hidden="@(!string.IsNullOrEmpty(Model.TerminatedByUserId))">
+            <button id="sendButton">Invia</button>
+            <button id="exitButton">Termina</button>
+            <button id="confirmExitButton">Sicuro?</button>
+        </div>
+        <button id="newChatButton" hidden="@(string.IsNullOrEmpty(Model.TerminatedByUserId))">Nuova chat</button>
     </div>
 </div>

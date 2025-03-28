@@ -18,28 +18,32 @@ namespace OscarChatPlatform.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<string> Add(AnonymousChat chat)
+        public async Task<string> Add(RandomChat chat)
         {
             await _dbContext.AddAsync(chat);
             await _dbContext.SaveChangesAsync();
             return chat.Id;
         }
 
-        public async Task<AnonymousChat?> GetById(string id)
+        public async Task<RandomChat?> GetById(string id)
         {
-            return await _dbContext.Chats.FirstOrDefaultAsync(c => c.Id == id);
+            return await _dbContext.RandomChats
+                .Include(c => c.TerminatedByUser)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<string> GetChatWithOneUser(ApplicationUser user)
         {
-            AnonymousChat? chat = _dbContext.Chats.Where(x => x.User.Contains(user)).FirstOrDefault(c => c.User.Count == 1);
+            RandomChat? chat = _dbContext.RandomChats
+                .Where(x => x.Users.Contains(user))
+                .FirstOrDefault(c => c.Users.Count == 1);
 
             if (chat is null)
             {
                 chat = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    User = new List<ApplicationUser>() { user }
+                    Users = new List<ApplicationUser?>() { user }
                 };
                 await this.Add(chat);
             }
@@ -49,6 +53,12 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         public Task RemoveById(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task Update(RandomChat chat)
+        {
+            _dbContext.Update(chat);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
