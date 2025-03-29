@@ -24,7 +24,7 @@ namespace OscarChatPlatform.Web.Controllers
 
             ChatViewModel model = new ChatViewModel()
             {
-                UserId = HttpContext.Request.Cookies["UserId"] ?? "",
+                UserId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value ?? string.Empty,
                 Messages = messages,
                 TerminatedByUserId = terminatedByUserId
             };

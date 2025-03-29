@@ -94,9 +94,12 @@ namespace OscarChatPlatform.Application.Services
             await _chatRoomQueueRepository.Remove(queue);
         }
 
-        internal async Task<string?> GetTerminatedUserByChatId(string id)
+        public async Task<string?> GetTerminatedUserByChatId(string id)
         {
-            throw new NotImplementedException();
+            RandomChat chat = await _chatRepository.GetById(id) ?? throw new Exception();
+
+            return chat.TerminatedByUser?.Id;
+
         }
     }
 }

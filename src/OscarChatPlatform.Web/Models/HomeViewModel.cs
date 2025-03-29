@@ -3,6 +3,11 @@
     public class HomeViewModel
     {
         /// <summary>
+        /// User Identifier of the current user
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Indicates if the user never landed on the homepage
         /// </summary>
         public bool IsNewUser { get; set; }

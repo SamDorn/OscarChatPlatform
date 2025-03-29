@@ -6,9 +6,13 @@
     ViewData["Title"] = "Home";
 }
 <link rel="stylesheet" href="~/css/home.css" />
+<script>
+    const userId = "@Model.UserId";
+    localStorage.setItem("cachedUserId", userId);
+</script>
 <script src="~/js/chat.js"></script>
-
 @await Html.PartialAsync("_Sidebar")
+@await Html.PartialAsync("_SearchingUser")
 
 <!-- Chat container -->
 <div class="chat-container" id="chatContainer">
@@ -30,4 +34,6 @@
         </div>
     </main>
 </div>
+
+
 

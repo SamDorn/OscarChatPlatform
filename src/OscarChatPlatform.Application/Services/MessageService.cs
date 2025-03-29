@@ -22,9 +22,9 @@ namespace OscarChatPlatform.Application.Services
             _notificationService = notificationService;
         }
 
-            public async Task InsertMessage(string chatId, string message, string connectionId)
+            public async Task InsertMessage(string chatId, string message, string userId)
             {
-                ApplicationUser sender = await _userRepository.GetByConnectionId(connectionId) ?? throw new Exception();
+                ApplicationUser sender = await _userRepository.GetById(userId) ?? throw new Exception();
 
                 RandomChat currentChat = await _chatRepository.GetById(chatId) ?? throw new Exception();
 

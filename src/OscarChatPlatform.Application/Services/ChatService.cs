@@ -36,9 +36,9 @@ namespace OscarChatPlatform.Application.Services
             await _chatRoomService.CreateChat(userId);
         }
 
-        public async Task InsertMessage(string chatId, string message, string connectionId)
+        public async Task InsertMessage(string chatId, string message, string userId)
         {
-            await _messageService.InsertMessage(chatId, message, connectionId);
+            await _messageService.InsertMessage(chatId, message, userId);
         }
 
         public async Task DeleteChatRoomQueueIfExists(string connectionId)

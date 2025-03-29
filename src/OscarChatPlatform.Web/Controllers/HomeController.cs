@@ -26,10 +26,10 @@ namespace OscarChatPlatform.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            string userId = HttpContext.Request.Cookies["UserId"] ?? string.Empty;
-
-            //if (await _userService.IsValidUser(userId))
-            //    return RedirectToAction("Home");
+            if(User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value is not null)
+            {
+                return RedirectToAction("home");
+            }
 
             return View();
         }
@@ -38,11 +38,9 @@ namespace OscarChatPlatform.Web.Controllers
         [HttpGet("home")]
         public async Task<IActionResult> Home()
         {
-
-            string userId = HttpContext.Request.Cookies["UserId"] ?? string.Empty;
-
             HomeViewModel model = new()
             {
+                UserId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value ?? string.Empty,
                 IsNewUser = bool.Parse(HttpContext.Request.Cookies["IsNewUser"] ?? "false"),
                 ActiveChats = await _chatService.GetNumberActiveChats(),
                 OnlineUsers = await _userService.GetNumberActiveUser()
@@ -58,7 +56,6 @@ namespace OscarChatPlatform.Web.Controllers
             // Create the new anonymous user
             string token = await _userService.CreateUser();
 
-            // Append the UserId in the cookie
             HttpContext.Response.Cookies.Append("token", token, new CookieOptions()
             {
                 Expires = DateTimeOffset.MaxValue,

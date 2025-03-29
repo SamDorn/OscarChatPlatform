@@ -37,7 +37,7 @@ namespace OscarChatPlatform.Infrastructure.Repositories
         /// <returns></returns>
         public bool IsEmpty()
         {
-            return _dbContext.ChatRoomQueues.IsNullOrEmpty();
+            return !_dbContext.ChatRoomQueues.Any();
         }
 
         public async Task Remove(ChatRoomQueue chatRoomQueue)

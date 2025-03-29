@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using OscarChatPlatform.Application;
 using OscarChatPlatform.Application.Services;
 
 namespace OscarChatPlatform.Infrastructure.WebSocket
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         private readonly ChatService _chatService;
@@ -24,7 +26,7 @@ namespace OscarChatPlatform.Infrastructure.WebSocket
         }
         public async Task SendMessage(string chatId, string message)
         {
-            await _chatService.InsertMessage(chatId, message, Context.ConnectionId);
+            await _chatService.InsertMessage(chatId, message, Context.User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value!);
         }
 
         public async Task TerminateChat(string chatId, string terminatedByUserId)

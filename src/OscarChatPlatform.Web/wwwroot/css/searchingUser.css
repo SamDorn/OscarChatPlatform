@@ -1,0 +1,81 @@
+﻿.loading-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-box {
+    position: relative;
+    background: #2a2a3b;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+}
+
+.loading-box-header {
+    position: relative;
+    height: 20px;
+    margin-bottom: 15px;
+}
+
+.btn-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background: #ff5f5f;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding: 0; /* Aggiunto per rimuovere padding eventuale */
+    line-height: 1; /* Aggiunto per migliorare l'allineamento */
+}
+
+    .btn-close::before {
+        content: "X";
+        font-weight: 900;
+        display: block;
+        margin-top: -1px; /* Regolazione fine per centratura ottimale */
+        font-size: 14px; /* Dimensione leggermente ridotta */
+    }
+
+    .btn-close:hover {
+        background: #ff3a3a;
+    }
+
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #c792ea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

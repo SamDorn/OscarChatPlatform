@@ -7,28 +7,10 @@ var connection = new signalR.HubConnectionBuilder()
     .withUrl(SignalR_URL)
     .build();
 
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 $(document).ready(function () {
+    const userId = localStorage.getItem("cachedUserId");
 
     $("#confirmExitButton").hide();
-
-    const userId = getCookie("UserId");
 
     connection.start().then(function () {
         connection.invoke("AppendConnectionIdToUser", userId)
@@ -39,7 +21,6 @@ $(document).ready(function () {
         $("#loadingPopup").css("display", "flex");
         connection.invoke("JoinChat", userId).catch(function (err) {
             console.error("Errore JoinChat", err.toString());
-
         });
     })
 
@@ -114,5 +95,12 @@ $(document).ready(function () {
         $("#chatInput").attr("placeholder", "Chat terminata");
         $("#chatInput").prop('disabled', true);
     }
+
+    $("#newChatButton").on("click", function () {
+        $("#loadingPopup").css("display", "flex");
+        connection.invoke("JoinChat", userId).catch(function (err) {
+            console.error("Errore JoinChat", err.toString());
+        });
+    })
 });
 
